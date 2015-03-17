@@ -1,0 +1,5 @@
+services:
+    oauth_test_provider:
+        class: AppBundle\OAuthProvider\LoginUserProvider
+        arguments:
+            - @doctrine.orm.entity_manager

@@ -52,6 +52,13 @@ class User implements UserInterface, \JsonSerializable
     /**
      * @var string
      *
+     * @ORM\Column(name="fb_id", type="string", nullable=true)
+     */
+    protected $fb_id;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="g_token", type="string", nullable=true)
      */
     protected $g_token;
@@ -59,9 +66,23 @@ class User implements UserInterface, \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", nullable=true)
+     * @ORM\Column(name="g_id", type="string", nullable=true)
      */
-    protected $role;
+    protected $g_id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", nullable=true)
+     */
+    protected $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="string", nullable=true)
+     */
+    protected $roles;
 
     /**
      * @var string
@@ -82,6 +103,12 @@ class User implements UserInterface, \JsonSerializable
      */
     protected $plainPassword;
 
+    public function __construct()
+    {
+        $this->salt = uniqid();
+        $this->setRoles('ROLE_USER');
+    }
+
     /**
      * @return mixed
      */
@@ -96,6 +123,8 @@ class User implements UserInterface, \JsonSerializable
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
     /**
@@ -112,6 +141,8 @@ class User implements UserInterface, \JsonSerializable
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -128,6 +159,8 @@ class User implements UserInterface, \JsonSerializable
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
@@ -144,6 +177,8 @@ class User implements UserInterface, \JsonSerializable
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -164,7 +199,7 @@ class User implements UserInterface, \JsonSerializable
      */
     public function getRoles()
     {
-        return [$this->role];
+        return [$this->roles];
     }
 
     /**
@@ -195,6 +230,8 @@ class User implements UserInterface, \JsonSerializable
     public function setSalt($salt)
     {
         $this->salt = $salt;
+
+        return $this;
     }
 
     /**
@@ -228,5 +265,156 @@ class User implements UserInterface, \JsonSerializable
     function jsonSerialize()
     {
         return [];
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fb_token
+     *
+     * @param string $fbToken
+     * @return User
+     */
+    public function setFbToken($fbToken)
+    {
+        $this->fb_token = $fbToken;
+
+        return $this;
+    }
+
+    /**
+     * Get fb_token
+     *
+     * @return string 
+     */
+    public function getFbToken()
+    {
+        return $this->fb_token;
+    }
+
+    /**
+     * Set g_token
+     *
+     * @param string $gToken
+     * @return User
+     */
+    public function setGToken($gToken)
+    {
+        $this->g_token = $gToken;
+
+        return $this;
+    }
+
+    /**
+     * Get g_token
+     *
+     * @return string 
+     */
+    public function getGToken()
+    {
+        return $this->g_token;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set fb_id
+     *
+     * @param string $fbId
+     * @return User
+     */
+    public function setFbId($fbId)
+    {
+        $this->fb_id = $fbId;
+
+        return $this;
+    }
+
+    /**
+     * Get fb_id
+     *
+     * @return string 
+     */
+    public function getFbId()
+    {
+        return $this->fb_id;
+    }
+
+    /**
+     * Set g_id
+     *
+     * @param string $gId
+     * @return User
+     */
+    public function setGId($gId)
+    {
+        $this->g_id = $gId;
+
+        return $this;
+    }
+
+    /**
+     * Get g_id
+     *
+     * @return string 
+     */
+    public function getGId()
+    {
+        return $this->g_id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return User
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set role
+     *
+     * @param Array $role
+     * @return User
+     */
+    public function setRoles($role)
+    {
+        $this->roles = $role;
+
+        return $this;
     }
 }
