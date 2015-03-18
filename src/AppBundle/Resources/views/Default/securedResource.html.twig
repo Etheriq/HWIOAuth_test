@@ -7,8 +7,12 @@
     <a href="{{ path('logout') }}">Logout</a>
     <hr>
 
-    E-mail: {{ user.email }} <br>
-    Name: {{ user.lastname }} <br>
+    {% if user.email is defined %}
+        E-mail: {{ user.email }} <br>
+    {% endif %}
+    {% if user.lastname is defined %}
+        Name: {{ user.lastname }} <br>
+    {% endif %}
 
 {% endblock %}
 

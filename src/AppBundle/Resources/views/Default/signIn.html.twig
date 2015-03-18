@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <a href="{{ path('homepage') }}"> Back </a><br>
+    <div class="login-form text-center">
+        {{ form_start(form, { 'attr': {'id': 'login_form'} }) }}
+
+        {% if error %}
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                </button>
+                {{ error.message }}
+            </div>
+        {% endif %}
+
+        <h3>Login form </h3>
+        {#{{ form_label(form.username) }}#}
+        {{ form_widget(form.username, {'attr': {'placeholder': 'username', 'class': 'form-control' } } ) }}
+
+        {#{{ form_label(form.password) }}#}
+        {{ form_widget(form.password, {'attr': {'placeholder': 'password', 'class': 'form-control'} } ) }}
+        <br>
+        <input type="submit" value="Sign In" class="btn btn-default">
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
+

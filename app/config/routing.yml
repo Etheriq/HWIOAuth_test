@@ -24,5 +24,7 @@ google_check:
 google_login:
     pattern: /connect/google
 
+formLogin_check:
+    path: /login_check
 logout:
     path: /logout
