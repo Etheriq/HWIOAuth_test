@@ -35,7 +35,7 @@ class LoginUserProvider implements UserProviderInterface, OAuthAwareUserProvider
         $em = $this->em;
 
         $type = $response->getResourceOwner()->getName();
-        $user = $em->getRepository('AppBundle:User')->findOneBy(['type' => $type, 'email' => $response->getEmail()]);
+        $user = $em->getRepository('AppBundle:User')->findOneBy(['email' => $response->getEmail()]);
 
         if ($user === null) {
             $user = new User();
@@ -43,20 +43,26 @@ class LoginUserProvider implements UserProviderInterface, OAuthAwareUserProvider
                 ->setFirstName($response->getUsername())
                 ->setLastName($response->getRealName())
                 ->setType($type);
-
-            if ($type === 'facebook') {
-                $user->setFbToken($response->getAccessToken());
-                $user->setFbId($response->getUsername());
-            }
-
-            if ($type === 'google') {
-                $user->setGToken($response->getAccessToken());
-                $user->setGId($response->getUsername());
-            }
-
             $em->persist($user);
-            $em->flush();
         }
+
+        if ($type === 'facebook') {
+            $user->setFbToken($response->getAccessToken())
+                ->setFbId($response->getUsername())
+                ->setType($type)
+                ->setGId(null)
+                ->setGToken(null);
+        }
+
+        if ($type === 'google') {
+            $user->setGToken($response->getAccessToken())
+                ->setGId($response->getUsername())
+                ->setType($type)
+                ->setFbId(null)
+                ->setFbToken(null);
+        }
+
+        $em->flush();
 
         return $user;
     }
