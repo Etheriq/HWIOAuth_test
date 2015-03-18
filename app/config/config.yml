@@ -89,4 +89,4 @@ hwi_oauth:
             type:                facebook
             client_id:           %fb_id%
             client_secret:       %fb_secret%
-            scope: "email, public_profile"
+            scope:               "email, public_profile"
